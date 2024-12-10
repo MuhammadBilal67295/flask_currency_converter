@@ -1,0 +1,62 @@
+body {
+  background-color: #f0f8ff; /* Light blue background */
+  font-family: Arial, sans-serif;
+  text-align: center; /* Center all text */
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #333; /* Darker color for header */
+}
+
+form {
+  margin: 20px auto;
+  display: inline-block; /* Inline block to center form */
+  text-align: left; /* Align text inside form */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffffff; /* White background for form */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+select,
+button {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #007bff; /* Blue background for button */
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #555;
+}

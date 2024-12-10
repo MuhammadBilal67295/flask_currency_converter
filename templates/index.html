@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h1>Currency Converter</h1>
+    <form id="converter-form">
+      <label for="base_currency">Base Currency:</label>
+      <select id="base_currency" name="base_currency" required></select>
+
+      <label for="target_currency">Target Currency:</label>
+      <select id="target_currency" name="target_currency" required></select>
+
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" required />
+
+      <button type="submit">Convert</button>
+    </form>
+
+    <div id="result"></div>
+
+    <footer>Developed by: Bilal Asif</footer>
+
+    <script>
+      // Fetch and populate currencies in dropdowns
+      fetch("/currencies")
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            const baseSelect = document.getElementById("base_currency");
+            const targetSelect = document.getElementById("target_currency");
+            const currencies = data.currencies;
+
+            for (const [code, name] of Object.entries(currencies)) {
+              const option = document.createElement("option");
+              option.value = code;
+              option.text = `${code} - ${name}`;
+              baseSelect.appendChild(option.cloneNode(true)); // Clone for target currency
+              targetSelect.appendChild(option);
+            }
+          } else {
+            console.error("Error fetching currencies:", data.message);
+          }
+        })
+        .catch((error) => console.error("Unexpected error:", error));
+
+      // Handle form submission
+      document
+        .getElementById("converter-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          fetch("/convert", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const resultDiv = document.getElementById("result");
+              if (data.success) {
+                resultDiv.innerText = `Converted Amount: ${data.converted_amount} (Rate: ${data.rate})`;
+              } else {
+                resultDiv.innerText = `Error: ${data.message}`;
+              }
+            })
+            .catch((error) => console.error("Unexpected error:", error));
+        });
+    </script>
+  </body>
+</html>
