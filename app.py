@@ -1,4 +1,4 @@
-gifrom flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import requests
 
 class OpenExchangeRatesAPI:
