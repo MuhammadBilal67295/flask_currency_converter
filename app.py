@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import requests
 
+
 class OpenExchangeRatesAPI:
     """Handles currency exchange rate fetching and supported currencies."""
     
@@ -9,30 +10,23 @@ class OpenExchangeRatesAPI:
         self.base_url = "https://openexchangerates.org/api"
     
     def get_supported_currencies(self):
-        """Fetch all supported currencies and add PKR manually."""
+        """Fetch all supported currencies."""
         try:
             url = f"{self.base_url}/currencies.json"
             response = requests.get(url)
-            # response.raise_for_status()
-            currencies = response.json()
-            # Manually add PKR if it's not in the list
-            # if 'PKR' not in currencies:
-            #     currencies['PKR'] = "Pakistani Rupee"
-            return currencies
+            return response.json()
         except requests.exceptions.RequestException as e:
             print(f"Error fetching supported currencies: {e}")
             return None
     
     def get_exchange_rate(self, base_currency, target_currency):
         """Fetch the exchange rate for the given currencies."""
-        # Use USD as the default base currency for the free plan
         base_currency = 'USD'
         try:
             url = f"{self.base_url}/latest.json?app_id={self.api_key}&base={base_currency}"
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
-            # Check if the target currency is available
             return data['rates'].get(target_currency, None)
         except requests.exceptions.RequestException as e:
             print(f"Error fetching exchange rate: {e}")
@@ -41,8 +35,9 @@ class OpenExchangeRatesAPI:
 
 app = Flask(__name__)
 
+
 # Initialize the API class
-open_exchange_api = OpenExchangeRatesAPI("94600378d9474f8499454fff969840bb")
+open_exchange_api = OpenExchangeRatesAPI("YOUR_API_KEY")  # Replace with your API key
 
 
 @app.route('/')
@@ -90,4 +85,4 @@ def convert_currency():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()  
