@@ -84,5 +84,3 @@ def convert_currency():
         return jsonify({'success': False, 'message': 'An unexpected error occurred.'})
 
 
-if __name__ == '__main__':
-    app.run(debug=True)  
