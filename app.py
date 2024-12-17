@@ -37,7 +37,7 @@ app = Flask(__name__)
 
 
 # Initialize the API class
-open_exchange_api = OpenExchangeRatesAPI("YOUR_API_KEY")  # Replace with your API key
+open_exchange_api = OpenExchangeRatesAPI("94600378d9474f8499454fff969840bb")  
 
 
 @app.route('/')
